@@ -13,6 +13,19 @@ function saveToStorage() {
   localStorage.setItem("cart", JSON.stringify(cart));
 }
 
+export function updateCartQuantity(className) {
+  let cartQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+
+  className === ".js-return-to-home-link"
+    ? (document.querySelector(`${className}`).innerHTML =
+        cartQuantity + " items")
+    : (document.querySelector(`${className}`).innerHTML = cartQuantity);
+}
+
 export function addToCart(productId, quantity) {
   let matchingItem;
 
