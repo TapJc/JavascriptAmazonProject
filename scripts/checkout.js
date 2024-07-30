@@ -129,20 +129,18 @@ document.querySelectorAll(".js-save-quantity-link").forEach((link) => {
   link.addEventListener("click", () => {
     const productId = link.dataset.productId;
 
-    const container = document.querySelector(
-      `.js-cart-item-container-${productId}`
-    );
-
     const quantityInput = Number(
       document.querySelector(`.js-quantity-input-${productId}`).value
     );
 
+    const container = document.querySelector(
+      `.js-cart-item-container-${productId}`
+    );
+
     updateQuantity(productId, quantityInput);
-
     updateCartQuantity(".js-return-to-home-link");
-    document.querySelector(`.js-quantity-label-${productId}`).innerHTML =
-      quantityInput;
 
+    document.querySelector(`.js-quantity-input-${productId}`).value = "";
     container.classList.remove("is-editing-quantity");
   });
 });

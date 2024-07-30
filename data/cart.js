@@ -5,13 +5,17 @@ function saveToStorage() {
 }
 
 export function updateQuantity(productId, newQuantity) {
-  cart.forEach((cartItem) => {
-    if (productId == cartItem.productId) {
-      cartItem.quantity = newQuantity;
-    }
-  });
+  if (newQuantity > 0 && newQuantity < 1000) {
+    cart.forEach((cartItem) => {
+      if (productId == cartItem.productId) {
+        cartItem.quantity = newQuantity;
+        document.querySelector(`.js-quantity-label-${productId}`).innerHTML =
+          newQuantity;
+      }
+    });
 
-  saveToStorage();
+    saveToStorage();
+  }
 }
 
 export function updateCartQuantity(className) {
