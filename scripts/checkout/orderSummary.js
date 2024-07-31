@@ -151,7 +151,7 @@ export function renderOrderSummary() {
       );
 
       updateQuantity(productId, quantityInput);
-      updateCartQuantity(".js-return-to-home-link");
+      renderOrderSummary();
       renderPaymentSummary();
 
       document.querySelector(`.js-quantity-input-${productId}`).value = "";
@@ -168,7 +168,7 @@ export function renderOrderSummary() {
         `.js-cart-item-container-${productId}`
       );
       container.remove();
-      updateCartQuantity(".js-return-to-home-link");
+      renderOrderSummary();
       renderPaymentSummary();
     });
   });
