@@ -1,7 +1,6 @@
 import {
   cart,
   removeFromCart,
-  updateCartQuantity,
   updateQuantity,
   updateDeliveryOption,
 } from "../../data/cart.js";
@@ -13,11 +12,10 @@ import {
   getDeliveryOption,
 } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+import { renderCheckoutHeader } from "./checkoutHeader.js";
 
 export function renderOrderSummary() {
   let cartSummaryHTML = "";
-
-  updateCartQuantity(".js-return-to-home-link");
 
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
@@ -151,6 +149,8 @@ export function renderOrderSummary() {
       );
 
       updateQuantity(productId, quantityInput);
+
+      renderCheckoutHeader();
       renderOrderSummary();
       renderPaymentSummary();
 
@@ -168,6 +168,8 @@ export function renderOrderSummary() {
         `.js-cart-item-container-${productId}`
       );
       container.remove();
+
+      renderCheckoutHeader();
       renderOrderSummary();
       renderPaymentSummary();
     });
