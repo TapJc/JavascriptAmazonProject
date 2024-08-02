@@ -35,6 +35,16 @@ export function updateQuantity(productId, newQuantity) {
   }
 }
 
+export function updateCartQuantity(className) {
+  let cartQuantity = 0;
+
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+
+  document.querySelector(`${className}`).innerHTML = cartQuantity;
+}
+
 export function addToCart(productId, quantity) {
   let matchingItem;
 
