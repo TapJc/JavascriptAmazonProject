@@ -26,8 +26,8 @@ export function getDeliveryOption(deliveryOptionId) {
       deliveryOption = option;
     }
   });
-  // Default value if deliveryOption isn't found
-  return deliveryOption || deliveryOptions[0];
+
+  return deliveryOption;
 }
 
 function isWeekend(deliveryDate) {

@@ -46,7 +46,7 @@ describe("Test Suited: renderOrderSummary", () => {
     document.querySelector(".js-test-container").innerHTML = "";
   });
 
-  it("displays the cart", () => {
+  it("Displays the cart", () => {
     // Testing how the page looks
     expect(document.querySelectorAll(".js-cart-item-container").length).toEqual(
       2
@@ -73,7 +73,7 @@ describe("Test Suited: renderOrderSummary", () => {
     ).toEqual("$20.95");
   });
 
-  it("removes a product", () => {
+  it("Removes a product", () => {
     // Testing how the page behaves
     document.querySelector(`.js-delete-link-${productId1}`).click();
 
@@ -97,5 +97,28 @@ describe("Test Suited: renderOrderSummary", () => {
     // Checks if cart array is updated
     expect(cart.length).toEqual(1);
     expect(cart[0].productId).toEqual(productId2);
+  });
+
+  it("Updating delivery option", () => {
+    const deliveryOption = 3;
+    document
+      .querySelector(`.js-delivery-option-${productId1}-${deliveryOption}`)
+      .click();
+
+    expect(
+      document.querySelector(
+        `.js-delivery-option-input-${productId1}-${deliveryOption}`
+      ).checked
+    ).toEqual(true);
+    expect(cart.length).toEqual(2);
+    expect(cart[0].productId).toEqual(productId1);
+    expect(cart[0].deliveryOptionId).toEqual("3");
+
+    expect(document.querySelector(".js-shipping-price").innerText).toEqual(
+      "$14.98"
+    );
+    expect(document.querySelector(".js-total-price").innerText).toEqual(
+      "$63.50"
+    );
   });
 });
