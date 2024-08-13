@@ -1,5 +1,5 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
-import { loadFromStorage, cart } from "../../data/cart.js";
+import { cart } from "../../data/cart-class.js";
 
 /**
  * 2 things to test:
@@ -20,23 +20,18 @@ describe("Test Suited: renderOrderSummary", () => {
     <div class="js-checkout-header"></div>
     <div class="js-payment-summary"></div>
   `;
-
-    spyOn(localStorage, "getItem").and.callFake(() => {
-      return JSON.stringify([
-        {
-          productId: productId1,
-          quantity: 2,
-          deliveryOptionId: "1",
-        },
-        {
-          productId: productId2,
-          quantity: 1,
-          deliveryOptionId: "2",
-        },
-      ]);
-    });
-
-    loadFromStorage();
+    cart.cartItems = [
+      {
+        productId: productId1,
+        quantity: 2,
+        deliveryOptionId: "1",
+      },
+      {
+        productId: productId2,
+        quantity: 1,
+        deliveryOptionId: "2",
+      },
+    ];
 
     renderOrderSummary();
   });
@@ -95,8 +90,8 @@ describe("Test Suited: renderOrderSummary", () => {
     ).toEqual("$20.95");
 
     // Checks if cart array is updated
-    expect(cart.length).toEqual(1);
-    expect(cart[0].productId).toEqual(productId2);
+    expect(cart.cartItems.length).toEqual(1);
+    expect(cart.cartItems[0].productId).toEqual(productId2);
   });
 
   it("Updating delivery option", () => {
@@ -110,9 +105,9 @@ describe("Test Suited: renderOrderSummary", () => {
         `.js-delivery-option-input-${productId1}-${deliveryOption}`
       ).checked
     ).toEqual(true);
-    expect(cart.length).toEqual(2);
-    expect(cart[0].productId).toEqual(productId1);
-    expect(cart[0].deliveryOptionId).toEqual("3");
+    expect(cart.cartItems.length).toEqual(2);
+    expect(cart.cartItems[0].productId).toEqual(productId1);
+    expect(cart.cartItems[0].deliveryOptionId).toEqual("3");
 
     expect(document.querySelector(".js-shipping-price").innerText).toEqual(
       "$14.98"

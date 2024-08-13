@@ -1,9 +1,9 @@
-import { addToCart, updateCartQuantity } from "../data/cart.js";
+import { cart } from "../data/cart-class.js";
 import { products } from "../data/products.js";
 
 let productHTML = "";
 
-updateCartQuantity(".js-cart-quantity");
+cart.updateCartQuantity(".js-cart-quantity");
 
 products.forEach((product) => {
   productHTML += ` 
@@ -85,8 +85,8 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
       document.querySelector(`.js-quantity-selector-${productId}`).value
     );
 
-    addToCart(productId, quantity);
+    cart.addToCart(productId, quantity);
     setTimeoutId = showAddedMessage(productId, setTimeoutId);
-    updateCartQuantity(".js-cart-quantity");
+    cart.updateCartQuantity(".js-cart-quantity");
   });
 });
